@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+import numpy as np
 
 
 def get_file_name():
@@ -30,7 +31,8 @@ if __name__ == '__main__':
             fichier=(final.__getitem__(0))
         print(fichier)
         df_sheet_index = pd.read_excel(chemin+'/'+el+'/'+fichier, sheet_name='Export 1')
-        print(df_sheet_index)
+        #print(df_sheet_index)
+        print(df_sheet_index.values[2][0])
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
