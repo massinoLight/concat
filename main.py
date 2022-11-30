@@ -13,14 +13,26 @@ def listdirs(folder):
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     chemin=get_file_name()+'/CAP FT'
+    first = './Reservation_1/SMPN-RIP24-D06_05_BAKO_DISTRI.xlsx'
+    df_sheet_index = pd.read_excel(first, sheet_name='Export 1')
+    col = df_sheet_index.values[6]
+    valeurs, commune, INSEE, path = [], [], [], []
+    for i in range(7, len(df_sheet_index), 4):
+        valeurs.append(df_sheet_index.values[i])
+        commune.append(df_sheet_index.values[1][2])
+        INSEE.append(df_sheet_index.values[1][6])
+        path.append(os.path.abspath(first))
+    df = pd.DataFrame(valeurs, columns=col)
+    df['commune'] = commune
+    df['INSEE'] = INSEE
+    df['path'] = path
 
     for el in os.listdir(chemin):
+        valeurs, commune, INSEE, path = [], [], [], []
         print(el)
         files=os.listdir(chemin+'/'+el)
-
         x = 'SMPN'
         res = [y for y in files if x in y]
-
         x = '.xlsx'
         final = [y for y in res if x in y]
 
@@ -31,8 +43,19 @@ if __name__ == '__main__':
             fichier=(final.__getitem__(0))
         print(fichier)
         df_sheet_index = pd.read_excel(chemin+'/'+el+'/'+fichier, sheet_name='Export 1')
-        #print(df_sheet_index)
-        print(df_sheet_index.values[2][0])
+
+
+        for i in range(7, len(df_sheet_index), 4):
+            valeurs.append(df_sheet_index.values[i])
+            commune.append(df_sheet_index.values[1][2])
+            INSEE.append(df_sheet_index.values[1][6])
+            path.append(os.path.abspath(chemin+'/'+el+'/'+fichier))
+        df2 = pd.DataFrame(valeurs, columns=col)
+        df2['commune'] = commune
+        df2['INSEE'] = INSEE
+        df2['path'] = path
+        df= df.append(df2, ignore_index=True)
+    df.to_excel('output.xlsx')
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

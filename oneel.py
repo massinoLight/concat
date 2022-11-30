@@ -13,12 +13,17 @@ def listdirs(folder):
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
-        chemin='./CAP FT/Reservation_00/SMPN-RIP24-D06_04_BALA_DISTRI.xlsx'
-        df_sheet_index = pd.read_excel(chemin, sheet_name='Export 1')
-        #print(df_sheet_index)
-        print(df_sheet_index)
+    first = './Reservation_1/SMPN-RIP24-D06_05_BAKO_DISTRI.xlsx'
+    df_sheet_index = pd.read_excel(first, sheet_name='Export 1')
+    col = df_sheet_index.values[6]
 
-        print(df_sheet_index.values[1][2])
-
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    valeurs, commune, INSEE, path = [], [], [], []
+    for i in range(7, len(df_sheet_index), 4):
+        valeurs.append(df_sheet_index.values[i])
+        commune.append(df_sheet_index.values[1][2])
+        INSEE.append(df_sheet_index.values[1][6])
+        path.append(os.path.abspath(first))
+    df = pd.DataFrame(valeurs, columns=col)
+    df['commune']=commune
+    df['INSEE'] = INSEE
+    df['path'] = path
