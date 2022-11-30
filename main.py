@@ -45,7 +45,7 @@ if __name__ == '__main__':
         df_sheet_index = pd.read_excel(chemin+'/'+el+'/'+fichier, sheet_name='Export 1')
 
 
-        for i in range(7, len(df_sheet_index), 4):
+        for i in range(7, len(df_sheet_index)):
             valeurs.append(df_sheet_index.values[i])
             commune.append(df_sheet_index.values[1][2])
             INSEE.append(df_sheet_index.values[1][6])
@@ -55,7 +55,8 @@ if __name__ == '__main__':
         df2['INSEE'] = INSEE
         df2['path'] = path
         df= df.append(df2, ignore_index=True)
-    df.to_excel('output.xlsx')
+    df = df[df['N° appui'].notna()]
+    df.to_excel('output2.xlsx',index=False)
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

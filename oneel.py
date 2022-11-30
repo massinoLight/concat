@@ -18,7 +18,9 @@ if __name__ == '__main__':
     col = df_sheet_index.values[6]
 
     valeurs, commune, INSEE, path = [], [], [], []
-    for i in range(7, len(df_sheet_index), 4):
+    print(df_sheet_index.values[6][0])
+
+    """for i in range(7, len(df_sheet_index), 4):
         valeurs.append(df_sheet_index.values[i])
         commune.append(df_sheet_index.values[1][2])
         INSEE.append(df_sheet_index.values[1][6])
@@ -27,3 +29,4 @@ if __name__ == '__main__':
     df['commune']=commune
     df['INSEE'] = INSEE
     df['path'] = path
+    """
