@@ -55,7 +55,13 @@ if __name__ == '__main__':
         df2['INSEE'] = INSEE
         df2['path'] = path
         df= df.append(df2, ignore_index=True)
-    df = df[df['N° appui'].notna()]
+
+
+    num=df['N° appui']
+    num=num.ffill(axis = 0)
+    print(num)
+    df['N° appui']=num
+
     df.to_excel('output2.xlsx',index=False)
 
 
